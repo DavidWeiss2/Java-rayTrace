@@ -4,6 +4,8 @@ import java.util.Objects;
 
 /**
  * Point3D: class for represent a point in 3d env
+ *
+ * @author david weiss
  */
 public class Point3D {
     /**
@@ -36,17 +38,32 @@ public class Point3D {
         this(new Coordinate(_x), new Coordinate(_y), new Coordinate(_z));
     }
 
-
+    /**
+     * Constructor for creating a point
+     *
+     * @param point3D to copy from
+     */
     public Point3D(Point3D point3D) {
         this(point3D.get_x(), point3D.get_y(), point3D.get_z());
     }
 
+    /**
+     * add value to a point and return the value
+     * @param other a vector presnting the move size
+     * @return new Point3D
+     */
     public Point3D add(Vector other) {
         return new Point3D(this._x.get() + other._head._x.get(),
                 this._y.get() + other._head._y.get(),
                 this._z.get() + other._head._z.get());
     }
 
+    /**
+     * distance without the square root of the formula.
+     *
+     * @param other Point3D
+     * @return double
+     */
     public double distanceSquared(Point3D other) {
         double distanceOnXAxisBeforeSquaring = this._x.get() - other._x.get();
         double distanceOnYAxisBeforeSquaring = this._y.get() - other._y.get();
@@ -57,20 +74,43 @@ public class Point3D {
         return distanceOnXAxis + distanceOnYAxis + distanceOnZAxis;
     }
 
+    /**
+     * distance with the square root
+     * @param other Point3d
+     * @return double
+     */
     public double distance(Point3D other) {
         return Math.sqrt(distanceSquared(other));
     }
+
+    /**
+     * subtract point from point
+     * @param other Point3D
+     * @return Vector
+     */
     public Vector subtract(Point3D other) {
         return new Vector(this._x.get() - other._x.get(), this._y.get() - other._y.get(), this._z.get() - other._z.get());
     }
 
+    /**
+     * get x
+     * @return Coordinate
+     */
     public Coordinate get_x() {
         return new Coordinate(_x);
     }
 
+    /**
+     * get y
+     * @return Coordinate
+     */
     public Coordinate get_y() {
         return new Coordinate(_y);
     }
+    /**
+     * get z
+     * @return Coordinate
+     */
     public Coordinate get_z() {
         return new Coordinate(_z);
     }
