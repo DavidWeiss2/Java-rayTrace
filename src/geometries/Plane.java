@@ -9,8 +9,8 @@ import primitives.Vector;
  * @author david weiss
  */
 public class Plane implements Geometry {
-    Point3D point;
-    primitives.Vector normal;
+    Point3D _point;
+    primitives.Vector _normal;
 
     /**
      * Plane constructor from 3 points
@@ -20,19 +20,24 @@ public class Plane implements Geometry {
      * @param p3 point number 3
      */
     public Plane(Point3D p1, Point3D p2, Point3D p3) {
-        normal = null;
-        point = p1;
+        _point = new Point3D(p1);
+
+        Vector U = p2.subtract(p1);
+        Vector V = p3.subtract(p1);
+        Vector N = U.crossProduct(V);
+
+        _normal = N.scale(-1);
     }
 
     /**
      * Plane constructor from a point and vector
      *
      * @param point  a point on the plane (self (0, 0, 0)
-     * @param normal a normal for the Plane
+     * @param _normal a normal for the Plane
      */
-    public Plane(Point3D point, Vector normal) {
-        this.normal = normal;
-        this.point = point;
+    public Plane(Point3D point, Vector _normal) {
+        this._normal = _normal;
+        this._point = point;
     }
 
     /**
@@ -43,15 +48,15 @@ public class Plane implements Geometry {
      */
     @Override
     public Vector getNormal(Point3D point3D) {
-        return normal;
+        return _normal;
     }
 
     /**
      * get the point
      * @return Point3D
      */
-    public Point3D getPoint() {
-        return point;
+    public Point3D get_point() {
+        return _point;
     }
 
     /**
@@ -59,7 +64,7 @@ public class Plane implements Geometry {
      *
      * @return Vector
      */
-    public Vector getNormal() {
+    public Vector get_normal() {
         return getNormal(Point3D.ZERO);
     }
 
@@ -67,8 +72,8 @@ public class Plane implements Geometry {
     @Override
     public String toString() {
         return "Plane{" +
-                "point=" + point +
-                ", normal=" + normal +
+                "point=" + _point +
+                ", normal=" + _normal +
                 '}';
     }
 }
